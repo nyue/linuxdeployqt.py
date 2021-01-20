@@ -35,7 +35,7 @@ parser.add_argument('-qt','--qt-base-dir', help="Qt's base install path.", requi
 parser.add_argument('-qtqml','--qt-qml-dir', help="Path to Qt's QML imports directory. If not specified 'QT_BASE_DIR/qml' is used.", required=False, default="")
 parser.add_argument('-qtbin','--qt-bin-dir', help="Path to Qt's 'bin' directory. If not specified 'QT_BASE_DIR/bin' is used.", required=False, default="")
 parser.add_argument('-qtplugins','--qt-plugin-dir', help="Path to Qt's 'plugins' directory. If not specified 'QT_BASE_DIR/plugins' is used.", required=False, default="")
-parser.add_argument('--qml-import', help="Additional QML imports. Specify as '\"<module> <version>\"' e.g --qml-import \"QtMultimedia 5.0\". This is especially useful if you include QML code dynamically with e.g. Qt.createQmlObject(\"import QtMultimedia 5.0; SoundEffect{ ... }\")", action='append', required=False)
+parser.add_argument('--qml-import', help="Additional QML imports. Specify as '\"<module> <version>\"' e.g --qml-import \"QtMultimedia 6.0\". This is especially useful if you include QML code dynamically with e.g. Qt.createQmlObject(\"import QtMultimedia 6.0; SoundEffect{ ... }\")", action='append', required=False)
 parser.add_argument('-s','--qml-scan-dir', help='Directory to be recursively scanned for QML file imports. This argument can be specified multiple times to include more directories.', action='append', required=True)
 parser.add_argument('-o','--output', help="Output dependencies to JSON file. Use '-' for stdout", required=False)
 parser.add_argument('-v','--verbose', help='Verbose level <0-3> where 0 = No output. 1 = Info. 2 = Info+Warnings. 3 = Info+Warnings+Debug', type=int, default=0)
@@ -360,34 +360,34 @@ def determine_qt_plugins(deps):
     for so in deps:
 
         # Platform plugin
-        if so.startswith("libQt5Gui"):
+        if so.startswith("libQt6Gui"):
             debug("'%s' found" % so)
             plugin_list.add('platforms'+os.sep+'libqxcb.so')
 
         # CUPS print support
-        if so.startswith("libQt5PrintSupport"):
+        if so.startswith("libQt6PrintSupport"):
             debug("'%s' found" % so)
             plugin_list.add('printsupport'+os.sep+'libcupsprintersupport.so')
 
         # SVG support
-        if so.startswith("libQt5Svg"):
+        if so.startswith("libQt6Svg"):
             debug("'%s' found" % so)
             plugin_list.add('imageformats'+os.sep+'libqsvg.so')
 
         # Network support
-        if so.startswith("libQt5Network"):
+        if so.startswith("libQt6Network"):
             debug("'%s' found" % so)
             for plugin in os.listdir(qt_plugin_dir+os.sep+'bearer'):
                 plugin_list.add('bearer'+os.sep+plugin)
 
         # SQL support
-        if so.startswith("libQt5Sql"):
+        if so.startswith("libQt6Sql"):
             debug("'%s' found" % so)
             for plugin in os.listdir(qt_plugin_dir+os.sep+'sqldrivers'):
                 plugin_list.add('sqldrivers'+os.sep+plugin)
 
         # Multimedia support
-        if so.startswith("libQt5Multimedia."):
+        if so.startswith("libQt6Multimedia."):
             debug("'%s' found" % so)
             for plugin in os.listdir(qt_plugin_dir+os.sep+'mediaservice'):
                 plugin_list.add('mediaservice'+os.sep+plugin)
@@ -397,7 +397,7 @@ def determine_qt_plugins(deps):
                 plugin_list.add('playlistformats'+os.sep+plugin)
 
         # Sensors support
-        if so.startswith("libQt5Sensors"):
+        if so.startswith("libQt6Sensors"):
             debug("'%s' found" % so)
             for plugin in os.listdir(qt_plugin_dir+os.sep+'sensors'):
                 plugin_list.add('sensors'+os.sep+plugin)
@@ -405,7 +405,7 @@ def determine_qt_plugins(deps):
                 plugin_list.add('sensorgestures'+os.sep+plugin)
 
         # Positioning support
-        if so.startswith("libQt5Positioning"):
+        if so.startswith("libQt6Positioning"):
             debug("'%s' found" % so)
             for plugin in os.listdir(qt_plugin_dir+os.sep+'position'):
                 plugin_list.add('position'+os.sep+plugin)
