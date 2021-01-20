@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 The MIT License (MIT)
@@ -220,7 +220,7 @@ def ldd(executable):
 def lddr(executable,libs):
     '''Get all library dependencies (recursive) of 'executable' '''
     try:
-        output = subprocess.check_output(["ldd", "-r", executable])
+        output = subprocess.check_output(["ldd", "-r", executable], text=True)
     except subprocess.CalledProcessError as e:
         warn("CalledProcessError while running %s. Return code %s - output: %s" % (e.cmd,e.returncode,e.output))
         output = e.output
